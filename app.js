@@ -114,6 +114,12 @@ app.delete('/camps/:id',async (req,res)=>{
     res.redirect('/camps');
 })
 
+//error handling 
+    //use try catch in async and pass err to next , 
+    // catch(err){
+    //     next(err);
+    // }
+
 app.listen(3000,()=>{
     console.log('Listening on port 3000');
     
