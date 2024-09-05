@@ -1,0 +1,23 @@
+<% layout('layouts/boilerplate')%>
+
+<h1>all camps</h1>
+    <% for (let camp of allCamps){ %>
+        <!-- <ul>
+            <li> <a href='/camps/<%= camp._id  %>'> <b><%=camp.title  %> </b> </a> at <%=camp.location  %> </li>
+
+        </ul>
+        <img src="<%= camp.imageSrc %>" alt="camp img" width="200px"> -->
+
+        <div class="card" style="width: 300px;">
+            <img src="<%= camp.imageSrc %>" class="card-img-top" alt="camp img" width="200px">
+            <div class="card-body">
+              <h5 class="card-title"> <%=camp.title  %> </h5>
+              <p class="card-text"> <%=camp.location  %> <br> Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href='/camps/<%= camp._id  %>'  class="btn btn-primary"><%=camp.title  %></a>
+            </div>
+          </div>
+        
+    <% } %>
+    <br>
+    <a href="/camps/new">create new</a>
+    <br>
