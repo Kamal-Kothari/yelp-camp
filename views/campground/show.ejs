@@ -1,15 +1,25 @@
-<% layout('layouts/boilerplate')%>
-    <h3> <%= title  %> </h1>
-    <h4> <%=location   %></h2>
-        <img src="<%= imageSrc %>" alt="Image of camp">
-    <p> <%=description   %></p>
-    <h5> Price is <%=price   %>/pernight </h2>
-    <br>
-    <a href="/camps">All camps</a>
-    <br>
-    <div class="d-flex">
-        <a class="btn btn-secondary" href="/camps/<%=_id  %>/edit">edit this</a>
-        <form action="/camps/<%= _id  %>?_method=DELETE" method="post">
-            <button class="btn btn-danger">del camp</button>
-        </form>
-    </div>
+
+    <% layout('layouts/boilerplate') %>
+
+<h3><%= title %></h3>
+<h4><%= location %></h4>
+
+<img src="<%= imageSrc %>" alt="Image of camp">
+
+<p><%= description %></p>
+
+<h5>Price is <%= price %> per night</h5>
+
+<br>
+
+<a href="/camps">All camps</a>
+
+<br>
+
+<div class="d-flex">
+    <a class="btn btn-secondary" href="/camps/<%= _id %>/edit">Edit this</a>
+    
+    <form action="/camps/<%= _id %>?_method=DELETE" method="post" style="display:inline;">
+        <button class="btn btn-danger">Delete Camp</button>
+    </form>
+</div>

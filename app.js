@@ -4,6 +4,8 @@ const path = require('path');
 const Camp = require('./models/campground');
 const methodOverride= require('method-override');
 const ejsMate = require('ejs-mate');
+const { nextTick } = require('process');
+const morgan = require('morgan');
 
 
 const app=express();
@@ -23,6 +25,7 @@ app.use(methodOverride('_method'));
 app.engine('ejs',ejsMate);
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
+app.use(morgan('tiny'));
 
 
 async function createOne( ) {
@@ -72,11 +75,17 @@ app.get('/camps/new',(req,res)=>{
     res.render('campground/new');
 })
 
-app.post('/camps',async (req,res)=>{
-    console.log(req.body);
+app.post('/camps',async (req,res,next)=>{
+    try {
+        console.log(req.body);
     const newCamp = req.body.campground;
     const newObj = await Camp.create(newCamp);
-    res.redirect(`/camps/${newObj._id}`);
+    res.redirect(`/camps/${newObj._id}`);       
+    } catch (error) {
+        console.log('error in posting');
+
+        next(error);
+    }
     
 })
 
