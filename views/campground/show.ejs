@@ -1,25 +1,83 @@
+<% layout('layouts/boilerplate') %>
 
-    <% layout('layouts/boilerplate') %>
-
-<h3><%= title %></h3>
-<h4><%= location %></h4>
-
-<img src="<%= imageSrc %>" alt="Image of camp">
-
-<p><%= description %></p>
-
-<h5>Price is <%= price %> per night</h5>
-
-<br>
-
-<a href="/camps">All camps</a>
-
-<br>
-
-<div class="d-flex">
-    <a class="btn btn-secondary" href="/camps/<%= _id %>/edit">Edit this</a>
+<div class="row justify-content-around">
+    <div class="col-6">
+        <h3>
+            <%= title %>
+        </h3>
+        <h4>
+            <%= location %>
+        </h4>
     
-    <form action="/camps/<%= _id %>?_method=DELETE" method="post" style="display:inline;">
-        <button class="btn btn-danger">Delete Camp</button>
-    </form>
-</div>
+        <img src="<%= imageSrc %>" alt="Image of camp">
+    
+        <p>
+            <%= description %>
+        </p>
+    
+        <h5>Price is <%= price %> $ per night</h5>
+    
+        <br>
+    
+        <a href="/camps">All camps</a>
+    
+        <br>
+    
+        <hr>
+        <div class="d-flex justify-content-around my-5">
+            <a class="btn btn-secondary" href="/camps/<%= _id %>/edit">Edit this</a>
+    
+            <form action="/camps/<%= _id %>?_method=DELETE" method="post" style="display:inline;">
+                <button class="btn btn-danger">Delete Camp</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-6">
+        <h3>reviews</h3>
+        <% for(let review of reviews){ %>
+        
+            <p><%= review.body  %>  <b> <%= review.rating  %> <i class="fa-solid fa-star"></i> </b> </p>
+            <form action="/camps/<%= _id %>/reviews/<%= review._id  %>?_method=DELETE" method="post">
+                <button class="btn btn-danger">del review</button>
+                
+            </form>
+            <hr>
+        <% } %>
+        <hr>
+    
+        
+    
+        <div class="mb-3">
+            <form action="/camps/<%= _id  %>/reviews" method="post">
+                <fieldset>
+                    <legend>give a review </legend>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">body :</label>
+                        <textarea class="form-control" id="body" rows="3" name="review[body]" required></textarea>
+                    </div>
+    
+                    <div class="mb-3">
+                        <label for="rating">rating (1 to 5) :</label>
+                        <input type="range" min="1" max="5" id="rating" name="review[rating]" value="3" required>
+                        <!-- <label for="rating" class="form-label">rating (1 to 5) :</label>
+                <input type="range" min="1" max="5" id="rating" name="review[rating]"  class="form-control" required> -->
+                    </div>
+    
+                    <button>Submit review</button>
+                </fieldset>
+            </form>
+        </div>
+    
+        <!-- <div>
+            <form action="">
+                <fieldset>
+                    <legend>choose</legend>
+                    <input type="text">
+                </fieldset>
+            </form>
+        </div> -->
+    </div>
+  </div>
+
+    
+    

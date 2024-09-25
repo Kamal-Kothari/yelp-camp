@@ -1,6 +1,8 @@
 const mongoose= require('mongoose');
+const {Schema} = mongoose;
+const Review = require('./review');
 
-const campSchema = new mongoose.Schema({
+const campSchema = new Schema({
     title:{
         type: String,
         required : true,
@@ -19,7 +21,20 @@ const campSchema = new mongoose.Schema({
     },
     imageSrc:{
         type: String,
-    }
+    },
+
+    reviews :[
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Review',
+        }
+    ]
+})
+
+campSchema.post('findOneAndDelete',async (camp)=>{
+    await Review.deleteMany({
+        _id : {$in :camp.reviews}
+    })
 })
 
 const Camp = mongoose.model('Camp',campSchema); //err => Model
